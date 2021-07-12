@@ -1,23 +1,23 @@
-import {
-  Card,
-  CardContent,
-  Grid,
-  makeStyles,
-  Typography,
-} from '@material-ui/core';
-import noPhoto from '../images/no-photo.png';
 import React from 'react';
+import {
+  makeStyles,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Grid,
+} from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GridItem from './GridItem';
+import noPhoto from '../images/no-photo.png';
 
 const useStyles = makeStyles({
   media: {
     display: 'block',
-    height: 100,
-    margin: '0 auto',
+    height: 50,
   },
   grid: {
-    maxWidth: 300,
-    margin: '0 auto',
+    maxWidth: 500,
   },
 });
 
@@ -34,26 +34,34 @@ interface Props {
   volume24Hour?: number;
 }
 
-const CryptoCard: React.FC<Props> = (props) => {
+const CryptoAccordion: React.FC<Props> = (props) => {
   const classes = useStyles();
 
   return (
-    <Card>
-      <img
-        src={props.imageUrl || noPhoto}
-        alt={props.fullName || 'N/A'}
-        className={classes.media}
-      />
+    <Accordion>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls='panel1a-content'
+        id='panel1a-header'
+      >
+        <Grid>
+          <img
+            src={props.imageUrl || noPhoto}
+            alt={props.fullName || 'N/A'}
+            className={classes.media}
+          />
 
-      <CardContent>
-        <Typography component='h2' variant='h5' align='center'>
-          {props.fullName || 'N/A'}
-        </Typography>
+          <Typography component='h2' variant='h5'>
+            {props.fullName || 'N/A'}
+          </Typography>
 
-        <Typography variant='body2' align='center'>
-          {props.fromSymbol}/{props.toSymbol}
-        </Typography>
+          <Typography variant='body2'>
+            {props.fromSymbol}/{props.toSymbol}
+          </Typography>
+        </Grid>
+      </AccordionSummary>
 
+      <AccordionDetails>
         <Grid container direction='column' spacing={2} className={classes.grid}>
           <GridItem title='Price ($)' value={props.price} />
           <GridItem title='Change ($)' value={props.changeDay} />
@@ -62,9 +70,9 @@ const CryptoCard: React.FC<Props> = (props) => {
           <GridItem title='Volume (Day)' value={props.volumeDay} />
           <GridItem title='Volume (24Hr)' value={props.volume24Hour} />
         </Grid>
-      </CardContent>
-    </Card>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
-export default CryptoCard;
+export default CryptoAccordion;
