@@ -1,9 +1,9 @@
 export interface CoinData {
   CoinInfo: CoinInfo;
-  RAW: {
+  RAW?: {
     CAD: CoinQuoteRaw;
   };
-  DISPLAY: {
+  DISPLAY?: {
     CAD: CoinQuoteDisplay;
   };
 }
