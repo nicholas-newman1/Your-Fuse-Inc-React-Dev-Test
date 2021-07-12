@@ -7,6 +7,9 @@ import {
   FETCH_MORE_CRYPTOS_REQUEST,
   FETCH_MORE_CRYPTOS_SUCCESS,
   FETCH_MORE_CRYPTOS_FAILURE,
+  TOGGLE_CARD_VIEW,
+  NEXT_PAGE,
+  PREV_PAGE,
 } from './actionTypes';
 
 interface CryptosState {
@@ -15,6 +18,9 @@ interface CryptosState {
   error: string;
   limit: number;
   page: number;
+  cardView: boolean;
+  viewLimit: number;
+  viewPage: number;
 }
 
 // initial state
@@ -24,6 +30,9 @@ const initialState: CryptosState = {
   error: '',
   limit: 10,
   page: 0,
+  cardView: true,
+  viewLimit: 4,
+  viewPage: 0,
 };
 
 // reducer
@@ -46,6 +55,12 @@ const cryptosReducer = (state = initialState, action: CryptosActionTypes) => {
       };
     case FETCH_MORE_CRYPTOS_FAILURE:
       return { ...state, loading: false, error: action.payload };
+    case TOGGLE_CARD_VIEW:
+      return { ...state, cardView: !state.cardView };
+    case NEXT_PAGE:
+      return { ...state, viewPage: state.viewPage + 1 };
+    case PREV_PAGE:
+      return { ...state, viewPage: state.viewPage - 1 };
     default:
       return state;
   }

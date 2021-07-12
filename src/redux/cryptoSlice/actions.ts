@@ -9,6 +9,9 @@ import {
   FetchMoreCryptosFailure,
   FetchMoreCryptosRequest,
   FetchMoreCryptosSuccess,
+  NextPage,
+  PrevPage,
+  ToggleCardView,
 } from './actionTypes';
 
 export const fetchCryptosRequest = (): FetchCryptosRequest => ({
@@ -43,6 +46,18 @@ export const fetchMoreCryptosFailure = (
   payload: error,
 });
 
+export const toggleCardView = (): ToggleCardView => ({
+  type: 'TOGGLE_CARD_VIEW',
+});
+
+export const nextPage = (): NextPage => ({
+  type: 'NEXT_PAGE',
+});
+
+export const prevPage = (): PrevPage => ({
+  type: 'PREV_PAGE',
+});
+
 export const fetchCryptos = () => {
   return (dispatch: Dispatch<AppActions>, getState: () => AppState) => {
     dispatch(fetchCryptosRequest());
@@ -54,7 +69,10 @@ export const fetchCryptos = () => {
       `https://min-api.cryptocompare.com/data/top/mktcapfull?limit=${limit}&page=${page}&tsym=CAD`
     )
       .then((res) => res.json())
-      .then((data) => dispatch(fetchCryptosSuccess(data.Data)))
+      .then((data) => {
+        if (data.Response === 'Error') throw new Error(data.Message);
+        dispatch(fetchCryptosSuccess(data.Data));
+      })
       .catch((err) => dispatch(fetchCryptosFailure(err.message)));
   };
 };
