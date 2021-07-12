@@ -9,7 +9,7 @@ interface Props {
 const GridItem: React.FC<Props> = (props) => {
   return (
     <Grid item>
-      <Grid container justify='space-between'>
+      <Grid container justifyContent='space-between'>
         <Grid item>
           <Typography component='h3' variant='body2' align='center'>
             <strong>{props.title}</strong>
