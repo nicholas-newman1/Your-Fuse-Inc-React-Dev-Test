@@ -14,10 +14,12 @@ const useStyles = makeStyles({
     display: 'block',
     height: 100,
     margin: '0 auto',
+    marginBottom: '1rem',
   },
   grid: {
     maxWidth: 300,
     margin: '0 auto',
+    marginTop: '1rem',
   },
 });
 
@@ -39,13 +41,13 @@ const CryptoCard: React.FC<Props> = (props) => {
 
   return (
     <Card>
-      <img
-        src={props.imageUrl || noPhoto}
-        alt={props.fullName || 'N/A'}
-        className={classes.media}
-      />
-
       <CardContent>
+        <img
+          src={props.imageUrl || noPhoto}
+          alt={props.fullName || 'N/A'}
+          className={classes.media}
+        />
+
         <Typography component='h2' variant='h5' align='center'>
           {props.fullName || 'N/A'}
         </Typography>

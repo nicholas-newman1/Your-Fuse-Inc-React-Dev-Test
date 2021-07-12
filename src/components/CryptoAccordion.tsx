@@ -15,6 +15,7 @@ const useStyles = makeStyles({
   media: {
     display: 'block',
     height: 50,
+    marginBottom: '0.5rem',
   },
   grid: {
     maxWidth: 500,
